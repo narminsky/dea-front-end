@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/sazlamalar.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <hr>
+        <div class="row mt-3">
+            <h3 class="text-danger text-center">Diqqət!</h3>
+        </div>
+        <hr>
+        <div class="row">
+            <p class="fs-5 fw-normal">(Məlumatları sıfırla) düyməsinə basıldığı zaman, proqramın daxilində istifadə olunan məlumatlar təmizlənəcək və ilkin vəziyyətə gətiriləcək. Proqramı ilk dəfə açdıqda, bir çox məlumatlar artıq yüklənmiş olur. İstifadəçi özü digər məlumatları
+                proqrama daxil edə bilər. Proqramın Back-end hissəsi olmadığına görə, yadda saxlanılan məlumatlar ancaq proqramın istifadə olunduğu veb browser-də qalacaq.
+            </p>
+            <div class="buttons">
+                <button type="button" id="linkIndex" class="btn btn-warning">Əsas səhifə</button>
+                <button type="button" id="resetButton" class="btn btn-danger">Məlumatları sıfırla</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <h3 class="text-danger text-center">Əlavə məlumatlar</h3>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Sazlamalar bölməsi</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Əsas səhifə</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Alış-veriş bölməsi</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="signin-tab" data-bs-toggle="tab" data-bs-target="#signin" type="button" role="tab" aria-controls="signin" aria-selected="false">Giriş bölməsi</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="order-tab" data-bs-toggle="tab" data-bs-target="#order" type="button" role="tab" aria-controls="order" aria-selected="false">Sifarişlərim bölməsi</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="steps-tab" data-bs-toggle="tab" data-bs-target="#steps" type="button" role="tab" aria-controls="steps" aria-selected="false">Addımlar</button>
+            </li>
+        </ul>
+        <div class="tab-content col-8 mx-auto mt-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <p>Bu bölmədə proqramda istifadə olunan şablon məlumatları sıfırlamaq mümkündür. Bu proqram qurmaq üçün aşağıdakı proqramlardan istifadə olunub:</p>
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>jQuery</li>
+                    <li>Bootstrap</li>
+                </ul>
+                <p>Proqram ilk açıldığı zaman .js faylının daxilində yazılmış bir neçə obyekt yaradılır və browser-in localStorage yaddaşına yazılır. Proyektin daxilində bu məlumatlar istifadə olunur. Proqram sadəcə lokal işləyir. Heç bir servisə bağlanmır.
+                    Proyektin sadəcə front-end hissəsi qurulub.</p>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <p>Bu səhifədə istifadəçi digər səhifələrə daxil ola bilər. Komputer alış-verişi səhifəsinə daxil olarsa, onda, mövcud qeydiyyat olunmuş komputerlərin kateqoriyalarını görəcək. Sonradan qeydiyyat olunmuş komputerlərə həmçinin siyahıda görünəcək.
+                    İstifadəçi komputerləri axtara bilər.</p>
+                <p><span class="fw-bold">Hesaba daxil olmaq</span> düyməsinə basaraq hesaba daxil ola bilər. Əgər mövcud hesab yoxdursa, onda, özünə yeni hesab aça bilər. Bu məlumatlar sadəcə cari browser-də yadda saxlanır.</p>
+                <p>Hesaba daxil olan istifadəçi proqramı satıcı kimi istifadə etməyə başlayır. Həmçinin alıcı kimi də istifadə edə bilər. Yəni, siyahıdan komputer seçib, səbətə atıb komputerləri ala bilər. Satıcı kimi hesabına daxil olmuş istifadəçi, sistemə
+                    yeni komputerlər qeydiyyat edə bilər və özünün satdığı komputerlərin sifarişçilərini görə bilər.</p>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <p>Bu bölmədə istifadəçi proqramı alıcı kimi istifadə edir. Satıcı kimi hesabına daxil olmağından asılı olmayaraq. Alıcı komputerlərin kateqoriyaları siyahısından istədiyi kateqoriyaya daxil ola bilər və istədiyi komputeri səbətinə ata bilər.
+                    Həmçinin, alıcı komputerlərin şəkilləri üzərinə mausun sol düyməsinə basmaqla, komputer haqqında ətraflı məlumat ala bilər. Almaq istədiyi komputerləri səbətə atıb bitirdikdən sonra sifarişini təsdiqləyə və açılan pəncərədə, alıcı
+                    olaraq öz məlumatlarını daxil edib, sifarişi yekunlaşdırır. Bu zaman, səbətinə atıb aldığı komputerlər, həmin komputerlərin satıcılarının sifarişləri bölməsində görünür.</p>
+            </div>
+            <div class="tab-pane fade" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                <p>Bu bölmədə istifadəçi hesabına daxil ola bilər. Həmçinin, əgər hesabı mövcud deyilsə, özü üçün yeni hesab aça bilər.</p>
+                <p>Proqramı ilk dəfə açdığımızda 3 ədəd istifadəçi artıq sistemdə qeydiyyat edilmiş olur. Bu istifadəçilər aşağıdakılardır:</p>
+                <table id="users">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>İstifadəçi adı</th>
+                            <th>Şifrəsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>user1</td>
+                            <td>pass1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>user2</td>
+                            <td>pass2</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>user3</td>
+                            <td>pass3</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>admin</td>
+                            <td>admin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+                <p>Bu bölmədə satıcı komputerlərini siyahısı görə bilir. Həmçinin, yeni komputer qeydiyyatı edə bilər və siyahıdan istədiyi komputerini seçib silə və redaktə edə bilər.</p>
+            </div>
+            <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
+                <p>Addımlar...</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
