@@ -21,3 +21,11 @@ td {
 #users th {
     padding: 5px;
 }
+
+
+/* sign up html */
+
+#sign-up .invalid-feedback {
+    /* display: block; */
+    font-size: .75em;
+}
