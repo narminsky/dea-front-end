@@ -1,28 +1,39 @@
 $(document).ready(function() {
+    // massiv-de onceden qeydiyyat olunmush istifadechiler
     let usersArray = [{
+        name: "Narmin",
         username: "user01",
         password: "u01"
     }, {
+        name: "Raul",
         username: "user09",
         password: "u09"
     }, {
+        name: "Murad",
         username: "user06",
         password: "u06"
+    }, {
+        name: "Admin",
+        username: "admin",
+        password: "admin"
     }];
-
+    // username yazildiqdan sonra success
     $("#username").keyup(function() {
         if ($("#username").val() != "") {
             $("#username").removeClass("is-invalid");
             $("#username").addClass("is-valid");
         }
     });
+    // password yazildiqdan sonra success
     $("#password").keyup(function() {
         if ($("#password").val() != "") {
             $("#password").removeClass("is-invalid");
             $("#password").addClass("is-valid");
         }
     });
+    // formun submit edilmesi
     $("#log-in").submit(function(e) {
+
         e.preventDefault();
         let u = true,
             p = true,
@@ -42,10 +53,13 @@ $(document).ready(function() {
                 if ($("#username").val() == usersArray[i].username) {
                     mark = true;
                     if ($("#password").val() == usersArray[i].password) {
-                        // alert("Ugurlu log in");
+                        // daxil olan user-in adini local-da saxlamaq
+                        localStorage.setItem("span", $("#username").val());
+                        // ugurlu girish haqda alert
                         $("#success").fadeIn(800);
                         $("#success").removeClass("d-none");
                         $("#success").fadeOut(800);
+                        // index sehifeye yonlendirme
                         setTimeout(function() {
                             window.location.assign("../index.html");
                         }, 1600);
@@ -60,10 +74,13 @@ $(document).ready(function() {
                     if (localStorage.getItem(`u-${i}-username`) == $("#username").val()) {
                         mark = true;
                         if (localStorage.getItem(`u-${i}-password`) == $("#password").val()) {
-                            // alert("Ugurlu local log in");
+                            // daxil olan user-in adini local-da saxlamaq
+                            localStorage.setItem("span", $("#username").val());
+                            // ugurlu girish haqda alert
                             $("#success").fadeIn(800);
                             $("#success").removeClass("d-none");
                             $("#success").fadeOut(800);
+                            // index sehifeye yonlendirme
                             setTimeout(function() {
                                 window.location.assign("../index.html");
                             }, 1600);

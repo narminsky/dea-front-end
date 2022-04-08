@@ -53,7 +53,9 @@ $(document).ready(function() {
         }
     });
     // form submit
-    localStorage.setItem("ID", 0);
+    if (localStorage.getItem("ID") == null) {
+        localStorage.setItem("ID", 0);
+    }
     $("#sign-up").submit(function(e) {
         e.preventDefault();
         let num = Number(localStorage.getItem("ID")) + 1;
