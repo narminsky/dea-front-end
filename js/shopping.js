@@ -27,7 +27,8 @@ $(document).ready(function() {
         { photo: "acer.jpg", model: "Acer 22", description: "Acer 22 desc", price: "3540", status: "Xeyr", phone: "055-324-3434" },
         { photo: "acer.jpg", model: "Acer 23", description: "Acer 23 desc", price: "2450", status: "Xeyr", phone: "055-324-3434" },
         { photo: "acer.jpg", model: "Acer 24", description: "Acer 24 desc", price: "2500", status: "Xeyr", phone: "055-324-3434" },
-        { photo: "acer.jpg", model: "Acer 25", description: "Acer 25 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" }
+        { photo: "acer.jpg", model: "Acer 25", description: "Acer 25 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" },
+        { photo: "acer.jpg", model: "Acer 26", description: "Acer 26 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" }
     ];
     let asus = [
         { photo: "asus.jpg", model: "Asus 1", description: "Asus 1 desc", price: "578", status: "Xeyr", phone: "055-324-3434" },
@@ -137,6 +138,8 @@ $(document).ready(function() {
         { photo: "lenovo.jpg", model: "Lenovo 24", description: "Lenovo 24 desc", price: "2500", status: "Xeyr", phone: "055-324-3434" },
         { photo: "lenovo.jpg", model: "Lenovo 25", description: "Lenovo 25 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" }
     ];
+    // default massiv
+    let brandArray = acer;
     // ul yaradilmasi ve append olunmasi
     let category = document.createElement("ul");
     category.classList.add("list-group", "category", "mt-3");
@@ -155,43 +158,15 @@ $(document).ready(function() {
     $(".area").empty();
     // sag bolme - (acer) mehsullar bolmesinin yaradilmasi
     for (let i = 0; i < 15; i++) {
-        // w-20
-        let w20 = document.createElement("div");
-        w20.classList.add("w-20", "p-2");
-        // box
-        let box = document.createElement("div");
-        box.classList.add("box", "bg-light", "p-2", "rounded");
-        // box content
-        let img = document.createElement("img");
-        img.setAttribute("src", `../img/shopping/${acer[i].photo}`);
-        let pName = document.createElement("p");
-        pName.innerHTML = `<span>Ad:</span> ${acer[i].model}`;
-        let pDesc = document.createElement("p");
-        pDesc.innerHTML = `<span>Təsvir:</span> ${acer[i].description}`;
-        let pPrice = document.createElement("p");
-        pPrice.innerHTML = `<span>Qiymət:</span> ${acer[i].price}`;
-        let pStatus = document.createElement("p");
-        pStatus.innerHTML = `<span>Yeni:</span> ${acer[i].status}`;
-        let pPhone = document.createElement("p");
-        pPhone.innerHTML = `<span>Telefon:</span> ${acer[i].phone}`;
-        // append
-        box.appendChild(img);
-        box.appendChild(pName);
-        box.appendChild(pDesc);
-        box.appendChild(pPrice);
-        box.appendChild(pStatus);
-        w20.appendChild(box);
-        $(".area").append(w20);
+        itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
     }
-    $(".area .w-20 span").addClass("bg-info");
-    $(".area .w-20 span").addClass("badge");
     // sol menyudan brand-e click edildikde hemin brand mehsullarinin sag terefde gosterilmesi
     $(".cat-item").click(function() {
         $(".area").empty();
         $(".cat-item").removeClass("active");
         $(this).addClass("active");
         // sag bolme - mehsullar bolmesinin yaradilmasi
-        let brandArray = [];
+
         if ($(this).text().toLowerCase() == "asus") {
             brandArray = asus;
         } else if ($(this).text().toLowerCase() == "acer") {
@@ -203,36 +178,79 @@ $(document).ready(function() {
         } else if ($(this).text().toLowerCase() == "lenovo") {
             brandArray = lenovo;
         }
+        // mehsullar yaradan funksiya
         for (let i = 0; i < 15; i++) {
-            // w-20
-            let w20 = document.createElement("div");
-            w20.classList.add("w-20", "p-2");
-            // box
-            let box = document.createElement("div");
-            box.classList.add("box", "bg-light", "p-2", "rounded");
-            // box content
-            let img = document.createElement("img");
-            img.setAttribute("src", `../img/shopping/${brandArray[i].photo}`);
-            let pName = document.createElement("p");
-            pName.innerHTML = `<span>Ad:</span> ${brandArray[i].model}`;
-            let pDesc = document.createElement("p");
-            pDesc.innerHTML = `<span>Təsvir:</span> ${brandArray[i].description}`;
-            let pPrice = document.createElement("p");
-            pPrice.innerHTML = `<span>Qiymət:</span> ${brandArray[i].price}`;
-            let pStatus = document.createElement("p");
-            pStatus.innerHTML = `<span>Yeni:</span> ${brandArray[i].status}`;
-            let pPhone = document.createElement("p");
-            pPhone.innerHTML = `<span>Telefon:</span> ${brandArray[i].phone}`;
-            // append
-            box.appendChild(img);
-            box.appendChild(pName);
-            box.appendChild(pDesc);
-            box.appendChild(pPrice);
-            box.appendChild(pStatus);
-            w20.appendChild(box);
-            $(".area").append(w20);
+            itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
         }
+    });
+    // sehifenin scroll-unda kontent yuklenmesi
+    let lastItem = 0;
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            $(".spinnerio").removeClass("d-none");
+            const myTimeout = setTimeout(function() {
+                let childrenCount = $(".area").children().length; //15
+                let arrayLength = brandArray.length; //25
+                lastItem = childrenCount + 5; //20
+                if (lastItem > arrayLength) {
+                    lastItem = lastItem - (lastItem - arrayLength);
+                    // clearTimeout(myTimeout);
+                    $(".spinnerio").addClass("d-none");
+                }
+                for (let i = childrenCount; i < lastItem; i++) {
+                    itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
+                }
+            }, 3000);
+
+        }
+    });
+    // function
+    function itemCreator(photo, model, desc, price, status, phone) {
+        // w-20
+        let w20 = document.createElement("div");
+        w20.classList.add("w-20", "p-2");
+        // box
+        let box = document.createElement("div");
+        box.classList.add("box", "bg-light", "p-2", "rounded");
+        // box content
+        let img = document.createElement("img");
+        img.setAttribute("src", `../img/shopping/${photo}`);
+        let pName = document.createElement("p");
+        pName.innerHTML = `<span>Ad:</span> ${model}`;
+        let pDesc = document.createElement("p");
+        pDesc.innerHTML = `<span>Təsvir:</span> ${desc}`;
+        let pPrice = document.createElement("p");
+        pPrice.innerHTML = `<span>Qiymət:</span> ${price}`;
+        let pStatus = document.createElement("p");
+        pStatus.innerHTML = `<span>Yeni:</span> ${status}`;
+        let pPhone = document.createElement("p");
+        pPhone.innerHTML = `<span>Telefon:</span> ${phone}`;
+        // append
+        box.appendChild(img);
+        box.appendChild(pName);
+        box.appendChild(pDesc);
+        box.appendChild(pPrice);
+        box.appendChild(pStatus);
+        w20.appendChild(box);
+        $(".area").append(w20);
+        // class adding for bootstrap badge style
         $(".area .w-20 span").addClass("bg-info");
         $(".area .w-20 span").addClass("badge");
-    });
+    }
+    // function - 1
+    function brandArraySelector(catItem) {
+        let brandArray = [];
+        if (catItem.toLowerCase() == "asus") {
+            brandArray = asus;
+        } else if (catItem.toLowerCase() == "acer") {
+            brandArray = acer;
+        } else if (catItem.toLowerCase() == "dell") {
+            brandArray = dell;
+        } else if (catItem.toLowerCase() == "hp") {
+            brandArray = hp;
+        } else if (catItem.toLowerCase() == "lenovo") {
+            brandArray = lenovo;
+        }
+    }
+
 });
