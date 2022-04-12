@@ -169,7 +169,6 @@ $(document).ready(function() {
         $(".cat-item").removeClass("active");
         $(this).addClass("active");
         // sag bolme - mehsullar bolmesinin yaradilmasi
-        lastItem = 0;
         if ($(this).text().toLowerCase() == "asus") {
             brandArray = asus;
         } else if ($(this).text().toLowerCase() == "acer") {
@@ -185,30 +184,30 @@ $(document).ready(function() {
         for (let i = 0; i < 15; i++) {
             itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
         }
+        $(".spinnerio").removeClass("d-none");
     });
     // sehifenin scroll-unda kontent yuklenmesi
     $(window).scroll(function() {
         let arrayLength = brandArray.length;
         if (Math.ceil($(window).scrollTop()) + $(window).height() == $(document).height()) {
             let childrenCount = $(".area").children().length;
+            let lastItem = 0;
             if (childrenCount < arrayLength) {
-                let lastItem = 0;
                 if (arrayLength - childrenCount > 5) {
                     lastItem = childrenCount + 5;
-                    $(".spinnerio").removeClass("d-none");
+                    // $(".spinnerio").removeClass("d-none");
                 } else if (arrayLength - childrenCount <= 5) {
                     lastItem = childrenCount + (arrayLength - childrenCount);
-                    $(".spinnerio").addClass("d-none");
                 }
                 setTimeout(function() {
                     for (let i = childrenCount; i < lastItem; i++) {
                         itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
                     }
                 }, 3000);
+
+            } else if (childrenCount >= arrayLength) {
+                $(".spinnerio").addClass("d-none");
             }
-            console.log("childrenCount", childrenCount);
-            console.log("lastItem", lastItem);
-            console.log("arrayLength", arrayLength);
         }
     });
     // function
@@ -223,6 +222,7 @@ $(document).ready(function() {
         let img = document.createElement("img");
         img.setAttribute("src", `../img/shopping/${photo}`);
         let pName = document.createElement("p");
+        pName.classList.add("name");
         pName.innerHTML = `<span>Ad:</span> ${model}`;
         let pDesc = document.createElement("p");
         pDesc.innerHTML = `<span>Təsvir:</span> ${desc}`;
