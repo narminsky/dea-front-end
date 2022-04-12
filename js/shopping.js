@@ -28,7 +28,10 @@ $(document).ready(function() {
         { photo: "acer.jpg", model: "Acer 23", description: "Acer 23 desc", price: "2450", status: "Xeyr", phone: "055-324-3434" },
         { photo: "acer.jpg", model: "Acer 24", description: "Acer 24 desc", price: "2500", status: "Xeyr", phone: "055-324-3434" },
         { photo: "acer.jpg", model: "Acer 25", description: "Acer 25 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" },
-        { photo: "acer.jpg", model: "Acer 26", description: "Acer 26 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" }
+        { photo: "acer.jpg", model: "Acer 26", description: "Acer 26 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" },
+        { photo: "acer.jpg", model: "Acer 27", description: "Acer 27 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" },
+        { photo: "acer.jpg", model: "Acer 28", description: "Acer 28 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" },
+        { photo: "acer.jpg", model: "Acer 29", description: "Acer 29 desc", price: "4523", status: "Xeyr", phone: "055-324-3434" }
     ];
     let asus = [
         { photo: "asus.jpg", model: "Asus 1", description: "Asus 1 desc", price: "578", status: "Xeyr", phone: "055-324-3434" },
@@ -166,7 +169,7 @@ $(document).ready(function() {
         $(".cat-item").removeClass("active");
         $(this).addClass("active");
         // sag bolme - mehsullar bolmesinin yaradilmasi
-
+        lastItem = 0;
         if ($(this).text().toLowerCase() == "asus") {
             brandArray = asus;
         } else if ($(this).text().toLowerCase() == "acer") {
@@ -184,24 +187,28 @@ $(document).ready(function() {
         }
     });
     // sehifenin scroll-unda kontent yuklenmesi
-    let lastItem = 0;
     $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-            $(".spinnerio").removeClass("d-none");
-            const myTimeout = setTimeout(function() {
-                let childrenCount = $(".area").children().length; //15
-                let arrayLength = brandArray.length; //25
-                lastItem = childrenCount + 5; //20
-                if (lastItem > arrayLength) {
-                    lastItem = lastItem - (lastItem - arrayLength);
-                    // clearTimeout(myTimeout);
+        let arrayLength = brandArray.length;
+        if (Math.ceil($(window).scrollTop()) + $(window).height() == $(document).height()) {
+            let childrenCount = $(".area").children().length;
+            if (childrenCount < arrayLength) {
+                let lastItem = 0;
+                if (arrayLength - childrenCount > 5) {
+                    lastItem = childrenCount + 5;
+                    $(".spinnerio").removeClass("d-none");
+                } else if (arrayLength - childrenCount <= 5) {
+                    lastItem = childrenCount + (arrayLength - childrenCount);
                     $(".spinnerio").addClass("d-none");
                 }
-                for (let i = childrenCount; i < lastItem; i++) {
-                    itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
-                }
-            }, 3000);
-
+                setTimeout(function() {
+                    for (let i = childrenCount; i < lastItem; i++) {
+                        itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
+                    }
+                }, 3000);
+            }
+            console.log("childrenCount", childrenCount);
+            console.log("lastItem", lastItem);
+            console.log("arrayLength", arrayLength);
         }
     });
     // function
