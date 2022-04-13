@@ -3,7 +3,7 @@ $(document).ready(function() {
     let usersArray = [{
         name: "Narmin",
         username: "user01",
-        password: "u01"
+        password: "u01",
     }, {
         name: "Raul",
         username: "user09",

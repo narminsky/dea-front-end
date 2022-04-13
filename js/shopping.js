@@ -143,74 +143,80 @@ $(document).ready(function() {
     ];
     // default massiv
     let brandArray = acer;
-    // ul yaradilmasi ve append olunmasi
-    let category = document.createElement("ul");
-    category.classList.add("list-group", "category", "mt-3");
-    $(".left-menu").append(category);
+    // search input
+    $("#search").keyup(function(e) {
+        let text = $(this).val();
+        let notFound = false;
+        if ((e.keyCode > 64 && e.keyCode < 91) || e.keyCode == 8) {
+            $(".category").empty();
+            for (let i = 0; i < brands.length; i++) {
+                if (brands[i].toLowerCase().includes(text.toLowerCase())) {
+                    liCreate(brands[i]);
+                    notFound = true;
+                }
+            }
+            if (notFound == false) {
+                liCreate("Axtarış nəticəsi tapılmadı.");
+            }
+        }
+    });
     // li-lerin yaradilmasi ve append
     for (let i = 0; i < brands.length; i++) {
-        let catItem = document.createElement("li");
-        catItem.classList.add("list-group-item", "cat-item");
-        if (i == 0) {
-            catItem.classList.add("active");
-        }
-        catItem.innerText = brands[i];
-        $(".category").append(catItem);
+        liCreate(brands[i]);
     }
+    // active brand
+    $(".category").children().eq(0).addClass("active");
     // default olaraq sehifede acer modelin gosterilmesi
     $(".area").empty();
     // sag bolme - (acer) mehsullar bolmesinin yaradilmasi
     for (let i = 0; i < 15; i++) {
         itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
     }
-    // sol menyudan brand-e click edildikde hemin brand mehsullarinin sag terefde gosterilmesi
-    $(".cat-item").click(function() {
-        $(".area").empty();
-        $(".cat-item").removeClass("active");
-        $(this).addClass("active");
-        // sag bolme - mehsullar bolmesinin yaradilmasi
-        if ($(this).text().toLowerCase() == "asus") {
-            brandArray = asus;
-        } else if ($(this).text().toLowerCase() == "acer") {
-            brandArray = acer;
-        } else if ($(this).text().toLowerCase() == "dell") {
-            brandArray = dell;
-        } else if ($(this).text().toLowerCase() == "hp") {
-            brandArray = hp;
-        } else if ($(this).text().toLowerCase() == "lenovo") {
-            brandArray = lenovo;
-        }
-        // mehsullar yaradan funksiya
-        for (let i = 0; i < 15; i++) {
-            itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
-        }
-        $(".spinnerio").removeClass("d-none");
-    });
     // sehifenin scroll-unda kontent yuklenmesi
+    let interval;
     $(window).scroll(function() {
         let arrayLength = brandArray.length;
         if (Math.ceil($(window).scrollTop()) + $(window).height() == $(document).height()) {
             let childrenCount = $(".area").children().length;
             let lastItem = 0;
+            clearTimeout(interval);
             if (childrenCount < arrayLength) {
                 if (arrayLength - childrenCount > 5) {
                     lastItem = childrenCount + 5;
-                    // $(".spinnerio").removeClass("d-none");
                 } else if (arrayLength - childrenCount <= 5) {
                     lastItem = childrenCount + (arrayLength - childrenCount);
                 }
-                setTimeout(function() {
+                interval = setTimeout(function() {
                     for (let i = childrenCount; i < lastItem; i++) {
                         itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
                     }
                 }, 3000);
-
             } else if (childrenCount >= arrayLength) {
                 $(".spinnerio").addClass("d-none");
             }
         }
     });
-    // function
+    // functions
+    function liCreate(text) {
+        let catItem = document.createElement("li");
+        catItem.classList.add("list-group-item", "cat-item");
+        catItem.innerText = text;
+        $(".category").append(catItem);
+        // sol menyudan brand-e click edildikde hemin brand mehsullarinin sag terefde gosterilmesi
+        $(".cat-item").click(function() {
+            $(".area").empty();
+            $(".cat-item").removeClass("active");
+            $(this).addClass("active");
+            // sag bolme - mehsullar bolmesinin yaradilmasi
+            brandArraySelector($(this).text());
+            // mehsullar yaradan funksiya
+            for (let i = 0; i < 15; i++) {
+                itemCreator(brandArray[i].photo, brandArray[i].model, brandArray[i].description, brandArray[i].price, brandArray[i].status, brandArray[i].phone);
+            }
+            $(".spinnerio").removeClass("d-none");
+        });
+    }
+
     function itemCreator(photo, model, desc, price, status, phone) {
         // w-20
         let w20 = document.createElement("div");
@@ -244,9 +250,8 @@ $(document).ready(function() {
         $(".area .w-20 span").addClass("bg-info");
         $(".area .w-20 span").addClass("badge");
     }
-    // function - 1
+
     function brandArraySelector(catItem) {
-        let brandArray = [];
         if (catItem.toLowerCase() == "asus") {
             brandArray = asus;
         } else if (catItem.toLowerCase() == "acer") {
@@ -259,5 +264,4 @@ $(document).ready(function() {
             brandArray = lenovo;
         }
     }
-
 });
