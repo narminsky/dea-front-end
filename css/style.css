@@ -50,3 +50,43 @@ td {
 .w-20 {
     width: 20%;
 }
+
+.popup {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.567);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: none;
+}
+
+.popup .popup-box {
+    height: 93%;
+    background-color: #c5ceff;
+    border-radius: 7px;
+    overflow: auto;
+    position: relative;
+}
+
+.item-img {
+    width: 33%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.popup .icon {
+    position: absolute;
+    right: 7px;
+    top: 0px;
+    z-index: 1000;
+}
+
+.bi-x-circle {
+    font-size: 22px;
+}
+
+.bi-x-circle:hover {
+    color: white;
+}
